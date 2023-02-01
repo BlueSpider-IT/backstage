@@ -1,6 +1,6 @@
 app:
-  title: Backstage Example App
-  baseUrl: http://localhost:3000
+  title: VB Dev Portal
+  baseUrl: http://vb.apiworld.co.uk:3000
   #datadogRum:
   #  clientToken: '123456789'
   #  applicationId: qwerty
@@ -27,16 +27,20 @@ backend:
   # auth:
   #   keys:
   #     - secret: ${BACKEND_SECRET}
-  baseUrl: http://localhost:7007
+  baseUrl: https://vb.apiworld.co.uk/be
   listen:
     port: 7007
   database:
-    client: better-sqlite3
-    connection: ':memory:'
+    client: pg
+    connection:
+      host: 127.0.0.1
+      port: 5432
+      user: dbuser
+      password: s3cr3t
   cache:
     store: memory
   cors:
-    origin: http://localhost:3000
+    origin: https://vb.apiworld.co.uk
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
   csp:
@@ -119,7 +123,7 @@ proxy:
       Authorization: 'Api-Token ${DYNATRACE_ACCESS_TOKEN}'
 
 organization:
-  name: My Company
+  name: Vision Bank
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
@@ -151,7 +155,7 @@ rollbar:
   accountToken: my-rollbar-account-token
 
 lighthouse:
-  baseUrl: http://localhost:3003
+  baseUrl: https://vb.apiworld.co.uk/lh
 
 kubernetes:
   serviceLocatorMethod:
@@ -241,13 +245,13 @@ catalog:
   locations:
     # Add a location here to ingest it, for example from a URL:
     #
-    #     - type: url
-    #       target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
+    - type: url
+      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
     #
     # For local development you can use a file location instead:
     #
-    #     - type: file
-    #       target: ../catalog-model/examples/all-components.yaml
+    - type: file
+      target: ../catalog-model/examples/all-components.yaml
     #
     # File locations are relative to the current working directory of the
     # backend, for example packages/backend/.

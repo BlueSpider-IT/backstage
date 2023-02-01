@@ -1,0 +1,28 @@
+# docker-compose.yml
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: s3cr3t
+    ports:
+      - "5432:5432"
+
+#  backstage:
+#    image: backstage
+#    ports:
+#      - "7007:7007"
+
+  lighthouse:
+    image: spotify/lighthouse-audit-service:latest
+    environment:
+      PGHOST: db
+      PGUSER: dbuser
+      PGPASSWORD: s3cr3t
+      LAS_PORT: 4008
+    ports:
+      - "4008:4008"
